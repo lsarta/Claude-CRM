@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Key Metrics Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card metric-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title text-muted">Total Contacts</h5>
+                        <h2 class="text-primary">{{ total_contacts|default:0 }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-users fa-2x text-primary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card metric-card success">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title text-muted">Active Donors</h5>
+                        <h2 class="text-success">{{ total_donors|default:0 }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-heart fa-2x text-success"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card metric-card warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title text-muted">YTD Revenue</h5>
+                        <h2 class="text-warning">${{ total_revenue_ytd|floatformat:0|default:0 }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-dollar-sign fa-2x text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card metric-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title text-muted">This Month</h5>
+                        <h2 class="text-info">${{ monthly_revenue|floatformat:0|default:0 }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-calendar fa-2x text-info"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Revenue Trends (Last 12 Months)</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="revenueChart" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Donor Segments</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="segmentChart" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Campaign Performance & Recent Activity -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Active Campaigns</h5>
+            </div>
+            <div class="card-body">
+                {% for campaign in campaign_performance %}
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="fw-bold">{{ campaign.name }}</span>
+                        <span class="text-muted">${{ campaign.raised|floatformat:0 }} / ${{ campaign.goal|floatformat:0 }}</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" 
+                             style="width: {{ campaign.progress }}%" 
+                             aria-valuenow="{{ campaign.progress }}" 
+                             aria-valuemin="0" aria-valuemax="100">
+                            {{ campaign.progress|floatformat:1 }}%
+                        </div>
+                    </div>
+                    <small class="text-muted">{{ campaign.donors }} donors</small>
+                </div>
+                {% empty %}
+                <p class="text-muted">No active campaigns</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Upcoming Events</h5>
+            </div>
+            <div class="card-body">
+                {% for event in upcoming_events %}
+                <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+                    <div>
+                        <strong>{{ event.name }}</strong><br>
+                        <small class="text-muted">{{ event.event_date|date:"M j, Y" }} - {{ event.get_event_type_display }}</small>
+                    </div>
+                    <span class="badge bg-{{ event.status|default:'secondary' }}">
+                        {{ event.get_status_display }}
+                    </span>
+                </div>
+                {% empty %}
+                <p class="text-muted">No upcoming events</p>
+                {% endfor %}
+                
+                {% if upcoming_events %}
+                <div class="text-center mt-3">
+                    <a href="{% url 'events:list' %}" class="btn btn-outline-primary btn-sm">
+                        View All Events
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Transactions & Communications -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Recent Donations</h5>
+            </div>
+            <div class="card-body">
+                {% for transaction in recent_transactions %}
+                <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+                    <div>
+                        <strong>{{ transaction.contact.full_name }}</strong><br>
+                        <small class="text-muted">{{ transaction.transaction_date|date:"M j, Y" }}</small>
+                    </div>
+                    <div class="text-end">
+                        <strong class="text-success">${{ transaction.amount }}</strong><br>
+                        {% if transaction.campaign %}
+                        <small class="text-muted">{{ transaction.campaign.name }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-muted">No recent donations</p>
+                {% endfor %}
+                
+                {% if recent_transactions %}
+                <div class="text-center mt-3">
+                    <a href="{% url 'transactions:list' %}" class="btn btn-outline-primary btn-sm">
+                        View All Donations
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Recent Communications</h5>
+            </div>
+            <div class="card-body">
+                {% for comm in recent_communications %}
+                <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+                    <div>
+                        <strong>{{ comm.contact.full_name }}</strong><br>
+                        <small class="text-muted">
+                            {{ comm.get_type_display }} - {{ comm.created_at|date:"M j, Y" }}
+                        </small>
+                    </div>
+                    <span class="badge bg-{% if comm.direction == 'outbound' %}primary{% elif comm.direction == 'inbound' %}success{% else %}secondary{% endif %}">
+                        {{ comm.get_direction_display }}
+                    </span>
+                </div>
+                {% empty %}
+                <p class="text-muted">No recent communications</p>
+                {% endfor %}
+                
+                {% if recent_communications %}
+                <div class="text-center mt-3">
+                    <a href="{% url 'communications:list' %}" class="btn btn-outline-primary btn-sm">
+                        View All Communications
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Revenue Trends Chart
+fetch('{% url "analytics:api_revenue_trends" %}')
+    .then(response => response.json())
+    .then(data => {
+        const ctx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+// Donor Segments Chart
+fetch('{% url "analytics:api_donor_segments" %}')
+    .then(response => response.json())
+    .then(data => {
+        const ctx = document.getElementById('segmentChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
