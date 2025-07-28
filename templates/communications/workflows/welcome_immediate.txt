@@ -1,0 +1,49 @@
+WELCOME TO {{ organization_name|upper }}!
+Chicago's Premier Literary Arts Community
+
+Dear {{ contact.first_name }},
+
+Welcome to the {{ organization_name }} community! We're thrilled to have you join our vibrant network of writers, readers, and literary arts enthusiasts in Chicago.
+
+WHAT MAKES MAKE SPECIAL
+=======================
+We're more than just a literary organization – we're a creative home where emerging and established writers come together to:
+
+• Share their stories through our regular reading series
+• Develop their craft in supportive workshop environments  
+• Connect with community at literary events and gatherings
+• Get published through our publishing initiatives
+
+GET STARTED
+===========
+Here are some great ways to dive into the MAKE community:
+
+• Attend a reading: Join us for our monthly featured author events
+• Join a workshop: Develop your writing skills with experienced mentors
+• Volunteer: Help support Chicago's literary scene
+• Follow us: Stay updated on all our programs and events
+
+WHAT TO EXPECT
+==============
+As part of our community, you'll receive:
+
+• Monthly newsletters with event announcements and literary news
+• Early access to workshop registrations and special events
+• Invitations to exclusive member gatherings
+• Updates on local literary opportunities and resources
+
+We believe that literature has the power to transform communities, and we're excited to have you be part of that transformation.
+
+Have questions? Just reply to this email – we'd love to hear from you!
+
+Welcome to the literary family,
+The MAKE Literary Productions Team
+
+---
+{{ organization_name }}
+Chicago Literary Arts Organization
+Email: info@makeliterary.org | Phone: (XXX) XXX-XXXX
+Website: www.makeliterary.org
+
+You're receiving this because you joined our mailing list. 
+Reply with "UNSUBSCRIBE" if you no longer wish to receive these emails.

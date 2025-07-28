@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - {{ organization_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            background: #f8f9fa;
+            padding: 30px;
+            border: 1px solid #dee2e6;
+        }
+        .donation-highlight {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #27ae60;
+            text-align: center;
+        }
+        .amount {
+            font-size: 28px;
+            font-weight: bold;
+            color: #27ae60;
+            margin: 10px 0;
+        }
+        .impact-section {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 8px 8px;
+            font-size: 14px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .heart {
+            font-size: 24px;
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span class="heart">❤️</span>
+        <h1>Thank You, {{ contact.first_name }}!</h1>
+        <p>Your generosity makes all the difference</p>
+    </div>
+    
+    <div class="content">
+        <div class="donation-highlight">
+            <p><strong>Your contribution:</strong></p>
+            <div class="amount">${{ transaction.amount|floatformat:2 }}</div>
+            {% if transaction.campaign %}
+            <p><em>Supporting: {{ transaction.campaign.name }}</em></p>
+            {% endif %}
+            <p><small>Donated on {{ transaction.transaction_date|date:"F j, Y" }}</small></p>
+        </div>
+        
+        <p>Dear {{ contact.first_name }},</p>
+        
+        <p>Words cannot fully express how grateful we are for your generous support of {{ organization_name }}. Your donation of ${{ transaction.amount|floatformat:2 }} is an investment in Chicago's vibrant literary community and the power of storytelling to bring people together.</p>
+        
+        <div class="impact-section">
+            <h3>🌟 Your Impact in Action</h3>
+            <p>Here's how your contribution directly supports our mission:</p>
+            
+            {% if transaction.amount >= 500 %}
+            <ul>
+                <li><strong>📚 Major Program Support:</strong> Your gift helps fund an entire workshop series or major literary event</li>
+                <li><strong>✍️ Writer Scholarships:</strong> You're providing opportunities for emerging writers to develop their craft</li>
+                <li><strong>🏛️ Community Building:</strong> Supporting our efforts to make literature accessible to all Chicagoans</li>
+                <li><strong>📖 Publishing Initiatives:</strong> Helping local authors share their stories with the world</li>
+            </ul>
+            {% elif transaction.amount >= 250 %}
+            <ul>
+                <li><strong>🎭 Event Sponsorship:</strong> Your gift helps cover the costs of our monthly reading series</li>
+                <li><strong>👥 Workshop Materials:</strong> Providing resources for our educational programs</li>
+                <li><strong>📚 Library Building:</strong> Adding new books and resources to our community library</li>
+                <li><strong>🤝 Mentorship Programs:</strong> Supporting one-on-one guidance for emerging writers</li>
+            </ul>
+            {% elif transaction.amount >= 100 %}
+            <ul>
+                <li><strong>🎪 Reading Series:</strong> Your support helps bring 2-3 authors to our monthly events</li>
+                <li><strong>📝 Workshop Supplies:</strong> Providing materials for our writing workshops</li>
+                <li><strong>🏠 Community Space:</strong> Helping maintain our welcoming literary home</li>
+                <li><strong>📧 Communication:</strong> Keeping our community connected and informed</li>
+            </ul>
+            {% else %}
+            <ul>
+                <li><strong>☕ Community Building:</strong> Your gift helps create welcoming spaces for writers to gather</li>
+                <li><strong>📚 Resource Sharing:</strong> Supporting our library and lending programs</li>
+                <li><strong>🎤 Open Mic Nights:</strong> Providing platforms for new voices to be heard</li>
+                <li><strong>🤗 Inclusive Programming:</strong> Ensuring our events are accessible to everyone</li>
+            </ul>
+            {% endif %}
+        </div>
+        
+        <p>Your support joins you with a community of literary advocates who believe in the transformative power of words. Together, we're:</p>
+        
+        <ul>
+            <li>Nurturing the next generation of Chicago writers</li>
+            <li>Creating inclusive spaces for diverse voices</li>
+            <li>Building bridges between communities through shared stories</li>
+            <li>Preserving and celebrating our rich literary heritage</li>
+        </ul>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="#" class="cta-button">See Upcoming Events</a>
+        </div>
+        
+        <p><strong>What's Next?</strong></p>
+        <p>We'll keep you updated on how your contribution is making a difference. Look for our impact reports and event invitations in your inbox. And please, join us at an upcoming event – we'd love to thank you in person!</p>
+        
+        <p>Your official donation receipt is attached to this email for your tax records.</p>
+        
+        <p>With deep appreciation and literary love,<br>
+        <strong>The entire MAKE Literary Productions family</strong></p>
+        
+        <p><em>P.S. Your story matters too! If you're a writer, we'd love to learn more about your work. Reply to this email and tell us about your literary journey.</em></p>
+    </div>
+    
+    <div class="footer">
+        <p><strong>{{ organization_name }}</strong><br>
+        Where Chicago's stories come alive</p>
+        <p>Email: info@makeliterary.org | Phone: (XXX) XXX-XXXX<br>
+        Website: www.makeliterary.org</p>
+        <p><small>This thank you was sent with genuine gratitude from our team to yours.</small></p>
+    </div>
+</body>
+</html>

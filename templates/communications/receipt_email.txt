@@ -1,0 +1,43 @@
+DONATION RECEIPT - {{ organization_name }}
+
+Dear {{ contact.first_name }},
+
+Thank you for your generous donation to {{ organization_name }}. Your support helps us continue our mission to promote and celebrate literary arts in Chicago.
+
+RECEIPT DETAILS
+===============
+Receipt Number: {{ transaction.id }}
+Date: {{ transaction.transaction_date|date:"F j, Y" }}
+Donor Name: {{ contact.full_name }}
+Email: {{ contact.email }}
+{% if transaction.campaign %}Campaign: {{ transaction.campaign.name }}
+{% endif %}Payment Method: {{ transaction.get_payment_method_display }}
+Donation Amount: ${{ transaction.amount|floatformat:2 }}
+
+TAX DEDUCTIBILITY NOTICE
+========================
+This donation is tax-deductible to the full extent allowed by law. No goods or services were provided in exchange for this contribution. Please retain this receipt for your tax records.
+
+Tax ID: XX-XXXXXXX
+
+YOUR IMPACT
+===========
+Your support makes a real difference in our community. Here's how your contribution helps:
+
+• Supporting emerging writers through our mentorship programs
+• Hosting literary events that bring the community together  
+• Publishing opportunities for local authors
+• Educational workshops for writers of all levels
+
+We'll keep you updated on the impact of your support and upcoming events. If you have any questions about this receipt or would like to learn more about our programs, please don't hesitate to contact us.
+
+With heartfelt gratitude,
+The MAKE Literary Productions Team
+
+---
+{{ organization_name }}
+Chicago Literary Arts Organization
+Email: info@makeliterary.org | Phone: (XXX) XXX-XXXX
+Website: www.makeliterary.org
+
+This receipt was generated automatically on {{ transaction.created_at|date:"F j, Y \a\t g:i A" }}

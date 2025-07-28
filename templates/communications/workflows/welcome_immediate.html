@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to {{ organization_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            background: #f8f9fa;
+            padding: 30px;
+            border: 1px solid #dee2e6;
+        }
+        .highlight-box {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #e74c3c;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 8px 8px;
+            font-size: 14px;
+        }
+        .social-links {
+            margin: 15px 0;
+        }
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome to {{ organization_name }}!</h1>
+        <p>Chicago's Premier Literary Arts Community</p>
+    </div>
+    
+    <div class="content">
+        <h2>Dear {{ contact.first_name }},</h2>
+        
+        <p>Welcome to the {{ organization_name }} community! We're thrilled to have you join our vibrant network of writers, readers, and literary arts enthusiasts in Chicago.</p>
+        
+        <div class="highlight-box">
+            <h3>🎭 What Makes MAKE Special</h3>
+            <p>We're more than just a literary organization – we're a creative home where emerging and established writers come together to:</p>
+            <ul>
+                <li><strong>Share their stories</strong> through our regular reading series</li>
+                <li><strong>Develop their craft</strong> in supportive workshop environments</li>
+                <li><strong>Connect with community</strong> at literary events and gatherings</li>
+                <li><strong>Get published</strong> through our publishing initiatives</li>
+            </ul>
+        </div>
+        
+        <h3>📚 Get Started</h3>
+        <p>Here are some great ways to dive into the MAKE community:</p>
+        
+        <ul>
+            <li><strong>Attend a reading:</strong> Join us for our monthly featured author events</li>
+            <li><strong>Join a workshop:</strong> Develop your writing skills with experienced mentors</li>
+            <li><strong>Volunteer:</strong> Help support Chicago's literary scene</li>
+            <li><strong>Follow us:</strong> Stay updated on all our programs and events</li>
+        </ul>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="#" class="cta-button">Explore Upcoming Events</a>
+        </div>
+        
+        <h3>📧 What to Expect</h3>
+        <p>As part of our community, you'll receive:</p>
+        <ul>
+            <li>Monthly newsletters with event announcements and literary news</li>
+            <li>Early access to workshop registrations and special events</li>
+            <li>Invitations to exclusive member gatherings</li>
+            <li>Updates on local literary opportunities and resources</li>
+        </ul>
+        
+        <p>We believe that literature has the power to transform communities, and we're excited to have you be part of that transformation.</p>
+        
+        <p>Have questions? Just reply to this email – we'd love to hear from you!</p>
+        
+        <p>Welcome to the literary family,<br>
+        <strong>The MAKE Literary Productions Team</strong></p>
+    </div>
+    
+    <div class="footer">
+        <p><strong>{{ organization_name }}</strong><br>
+        Chicago Literary Arts Organization</p>
+        
+        <div class="social-links">
+            <a href="#">📘 Facebook</a>
+            <a href="#">📷 Instagram</a>
+            <a href="#">🐦 Twitter</a>
+            <a href="#">🌐 Website</a>
+        </div>
+        
+        <p>Email: info@makeliterary.org | Phone: (XXX) XXX-XXXX<br>
+        <small>You're receiving this because you joined our mailing list. 
+        <a href="#" style="color: #bdc3c7;">Unsubscribe</a> if you no longer wish to receive these emails.</small></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+THANK YOU - {{ organization_name|upper }}
+
+❤️ Thank You, {{ contact.first_name }}! ❤️
+Your generosity makes all the difference
+
+YOUR CONTRIBUTION: ${{ transaction.amount|floatformat:2 }}
+{% if transaction.campaign %}Supporting: {{ transaction.campaign.name }}
+{% endif %}Donated on {{ transaction.transaction_date|date:"F j, Y" }}
+
+Dear {{ contact.first_name }},
+
+Words cannot fully express how grateful we are for your generous support of {{ organization_name }}. Your donation of ${{ transaction.amount|floatformat:2 }} is an investment in Chicago's vibrant literary community and the power of storytelling to bring people together.
+
+YOUR IMPACT IN ACTION
+====================
+Here's how your contribution directly supports our mission:
+
+{% if transaction.amount >= 500 %}• Major Program Support: Your gift helps fund an entire workshop series or major literary event
+• Writer Scholarships: You're providing opportunities for emerging writers to develop their craft
+• Community Building: Supporting our efforts to make literature accessible to all Chicagoans
+• Publishing Initiatives: Helping local authors share their stories with the world
+{% elif transaction.amount >= 250 %}• Event Sponsorship: Your gift helps cover the costs of our monthly reading series
+• Workshop Materials: Providing resources for our educational programs
+• Library Building: Adding new books and resources to our community library
+• Mentorship Programs: Supporting one-on-one guidance for emerging writers
+{% elif transaction.amount >= 100 %}• Reading Series: Your support helps bring 2-3 authors to our monthly events
+• Workshop Supplies: Providing materials for our writing workshops
+• Community Space: Helping maintain our welcoming literary home
+• Communication: Keeping our community connected and informed
+{% else %}• Community Building: Your gift helps create welcoming spaces for writers to gather
+• Resource Sharing: Supporting our library and lending programs
+• Open Mic Nights: Providing platforms for new voices to be heard
+• Inclusive Programming: Ensuring our events are accessible to everyone
+{% endif %}
+
+Your support joins you with a community of literary advocates who believe in the transformative power of words. Together, we're:
+
+• Nurturing the next generation of Chicago writers
+• Creating inclusive spaces for diverse voices
+• Building bridges between communities through shared stories
+• Preserving and celebrating our rich literary heritage
+
+WHAT'S NEXT?
+============
+We'll keep you updated on how your contribution is making a difference. Look for our impact reports and event invitations in your inbox. And please, join us at an upcoming event – we'd love to thank you in person!
+
+Your official donation receipt is attached to this email for your tax records.
+
+With deep appreciation and literary love,
+The entire MAKE Literary Productions family
+
+P.S. Your story matters too! If you're a writer, we'd love to learn more about your work. Reply to this email and tell us about your literary journey.
+
+---
+{{ organization_name }}
+Where Chicago's stories come alive
+Email: info@makeliterary.org | Phone: (XXX) XXX-XXXX
+Website: www.makeliterary.org
+
+This thank you was sent with genuine gratitude from our team to yours.
